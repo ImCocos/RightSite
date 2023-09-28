@@ -50,7 +50,7 @@ class Cost(models.Model):
     unit = models.ForeignKey(Unit, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
-        return f'{self.__class__.__name__}-{self.name}'
+        return f'{self.__class__.__name__}-{self.cost}-{self.unit.name}'
 
 
 class Ability(models.Model):
@@ -86,11 +86,12 @@ class Item(models.Model):
 
 
 class Hero(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
+    categories = models.ManyToManyField(Category, blank=True)
     name = models.CharField(max_length=250)
     description = models.TextField(default='Without description')
     abilities = models.ManyToManyField(Ability, blank=True)
     photo = models.ImageField(upload_to='images/heroes/', blank=True, null=True)
+    items = models.ManyToManyField(Item, blank=True)
 
     def __str__(self):
         return f'{self.__class__.__name__}-{self.name}'

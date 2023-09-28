@@ -11,18 +11,52 @@
 
 {% verbatim %}
 <div class="container" id="all_heroes_app">
-    
+
+
     <div v-for="hero in heroes">
 
-        Id - {{ hero.id }}<br>
-        Name - {{ hero.name }}<br>
-        Description:<br>{{ hero.description }}<br>
-        <div v-if="hero.photo">
-            <img v-bind:src="hero.photo" width="100%" height="100%">
-        </div>
         <hr>
+        <div v-if="hero.photo">
+            <img v-bind:src="hero.photo" width="200px" height="200px" style="border-radius: 50%; object-fit: cover;">
+        </div><br>
+        <b style="font-size: 200%;">{{ hero.name }}</b><br>
+        {{ hero.name }}<br><br>
+
+        > Категории:<br>
+        <div v-for="cat in hero.categories">
+            &nbsp;{{ cat.name }}
+        </div><br>
+
+        > Описание:<br>{{ hero.description }}<br><br>
+
+        > Способности:
+        <div v-for="ab in hero.abilities">
+            &nbsp;{{ ab.name }} <img v-bind:src="ab.photo" width="20px" height="20px" style="border-radius: 50%; object-fit: cover;">:<br>
+            &nbsp;&nbsp;Тип:
+            <div v-if="ab.passive">
+                &nbsp;&nbsp;&nbsp;Пассивная
+            </div>
+            <div v-else>
+                &nbsp;&nbsp;&nbsp;Активная
+            </div>
+            &nbsp;&nbsp;Стоимость:
+            <div v-for="cost in ab.costs">
+                &nbsp;&nbsp;&nbsp;{{ cost.cost }} {{ cost.unit.name }} <img v-bind:src="cost.unit.photo" width="20px" height="20px" style="border-radius: 50%; object-fit: cover;"><br>
+            </div>
+        </div><br>
+
+        > Предметы:<br>
+        <div v-for="item in hero.items">
+            &nbsp;"{{ item.name }}"({{ item.item_class.name }}):<br>
+            &nbsp;&nbsp;&nbsp;Эффекты:
+            <div v-for="ef in item.effects">
+                &nbsp;&nbsp;&nbsp;&nbsp;{{ ef.name }}
+            </div>
+        </div>
 
     </div>
+    <hr>
+
 
 </div>
 {% endverbatim %}
