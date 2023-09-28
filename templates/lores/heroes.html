@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
+</head>
+<body>
+
+{% verbatim %}
+<div class="container" id="all_heroes_app">
+    
+    <div v-for="hero in heroes">
+
+        Id - {{ hero.id }}<br>
+        Name - {{ hero.name }}<br>
+        Description:<br>{{ hero.description }}<br>
+        <div v-if="hero.photo">
+            <img v-bind:src="hero.photo" width="100%" height="100%">
+        </div>
+        <hr>
+
+    </div>
+
+</div>
+{% endverbatim %}
+
+    <script src="/static/js/heroes.js"></script>
+</body>
+</html>
