@@ -1,6 +1,15 @@
 from rest_framework import serializers
+
 from .models import *
+from users.models import *
+
 from django.core.serializers import serialize
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'
 
 
 class PageObjectSerializer(serializers.ModelSerializer):
@@ -42,6 +51,7 @@ class ItemClassSerializer(serializers.ModelSerializer):
 
 
 class AbilitySerializer(serializers.ModelSerializer):
+    owner = UserSerializer()
     costs = CostSerializer(many=True)
     class Meta:
         model = Ability
@@ -49,6 +59,7 @@ class AbilitySerializer(serializers.ModelSerializer):
 
 
 class ItemSerializer(serializers.ModelSerializer):
+    owner = UserSerializer()
     item_class = ItemClassSerializer()
     effects = EffectSerializer(many=True)
 
@@ -58,6 +69,7 @@ class ItemSerializer(serializers.ModelSerializer):
 
 
 class StorySerializer(serializers.ModelSerializer):
+    owner = UserSerializer()
     page_objects = serializers.SerializerMethodField()
 
     class Meta:
@@ -69,6 +81,7 @@ class StorySerializer(serializers.ModelSerializer):
 
 
 class HeroSerializer(serializers.ModelSerializer):
+    owner = UserSerializer()
     categories = CategorySerializer(many=True)
     abilities = AbilitySerializer(many=True)
     items = ItemSerializer(many=True)

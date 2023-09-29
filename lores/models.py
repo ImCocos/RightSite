@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
+from users.models import User
 
 
 class PageObject(models.Model):
@@ -11,6 +12,7 @@ class PageObject(models.Model):
 
 
 class Story(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     date = models.DateField(name='created', auto_created=True, auto_now=True)
     page_objects = ArrayField(models.IntegerField(), name='page_objects', null=True)
 
@@ -54,6 +56,7 @@ class Cost(models.Model):
 
 
 class Ability(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=250)
     description = models.CharField(max_length=250, default='Without description')
     effects = models.ManyToManyField(Effect, blank=True)
@@ -75,6 +78,7 @@ class ItemClass(models.Model):
 
 
 class Item(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=250)
     description = models.CharField(max_length=250, default='Without description')
     item_class = models.ForeignKey(ItemClass, on_delete=models.SET_NULL, null=True)
@@ -86,6 +90,7 @@ class Item(models.Model):
 
 
 class Hero(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     categories = models.ManyToManyField(Category, blank=True)
     name = models.CharField(max_length=250)
     description = models.TextField(default='Without description')
