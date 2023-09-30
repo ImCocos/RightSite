@@ -28,7 +28,6 @@ from lores.views import *
 
 router = SimpleRouter()
 router.register('api/user', UserView)
-router.register('api/stories', APIStoryView)
 router.register('api/heroes', APIHeroView)
 
 urlpatterns = [

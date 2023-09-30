@@ -10,15 +10,6 @@ from .serializers import *
 
 app_name = LoresConfig.name
 
-class APIStoryView(ModelViewSet):
-    queryset = Story.objects.all()
-    serializer_class = StorySerializer
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['id', 'created']
-
-def stories(request):
-    return render(request, f'{app_name}/stories.html')
-
 
 class APIHeroView(ModelViewSet):
     queryset = Hero.objects.all()

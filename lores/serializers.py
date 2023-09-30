@@ -12,10 +12,10 @@ class UserSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class PageObjectSerializer(serializers.ModelSerializer):
+class UserLinkSerializer(serializers.ModelSerializer):
     class Meta:
-        model = PageObject
-        fields = '__all__'
+        model = User
+        fields = ['username', 'link']
 
 
 class EffectSerializer(serializers.ModelSerializer):
@@ -27,6 +27,20 @@ class EffectSerializer(serializers.ModelSerializer):
 class UnitSerializer(serializers.ModelSerializer):
     class Meta:
         model = Unit
+        fields = '__all__'
+
+
+class PerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Per
+        fields = '__all__'
+
+
+class AbilityCostSerializer(serializers.ModelSerializer):
+    unit = UnitSerializer()
+    per = PerSerializer()
+    class Meta:
+        model = AbilityCost
         fields = '__all__'
 
 
@@ -46,20 +60,35 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class ItemClassSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Category
+        model = ItemClass
+        fields = '__all__'
+
+
+class AbilityTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AbilityType
         fields = '__all__'
 
 
 class AbilitySerializer(serializers.ModelSerializer):
-    owner = UserSerializer()
-    costs = CostSerializer(many=True)
+    owner = UserLinkSerializer()
+    costs = AbilityCostSerializer(many=True)
+    ab_type = AbilityTypeSerializer()
+    effects = EffectSerializer(many=True)
+
     class Meta:
         model = Ability
         fields = '__all__'
 
 
+class HeroClassSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HeroClass
+        fields = '__all__'
+
+
 class ItemSerializer(serializers.ModelSerializer):
-    owner = UserSerializer()
+    owner = UserLinkSerializer()
     item_class = ItemClassSerializer()
     effects = EffectSerializer(many=True)
 
@@ -68,26 +97,22 @@ class ItemSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class StorySerializer(serializers.ModelSerializer):
-    owner = UserSerializer()
-    page_objects = serializers.SerializerMethodField()
-
-    class Meta:
-        model = Story
-        fields = '__all__'
-    
-    def get_page_objects(self, obj):
-        return [PageObjectSerializer(PageObject.objects.get(pk=i)).data for i in obj.page_objects]
-
-
 class HeroSerializer(serializers.ModelSerializer):
-    owner = UserSerializer()
+    owner = UserLinkSerializer()
     categories = CategorySerializer(many=True)
     abilities = AbilitySerializer(many=True)
     items = ItemSerializer(many=True)
-
 
     class Meta:
         model = Hero
         fields = '__all__'
 
+
+"""
+<div class="col-2 mx-3 my-4 p-0">
+    > Категории:
+    <div v-for="cat in hero.categories" class="my-2 rounded bg-dark p-2 text-center" style=" word-break: break-all;">
+        <a :href="'/' + cat.link" class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">{{ cat.name }}</a><br>
+    </div>
+</div>
+"""

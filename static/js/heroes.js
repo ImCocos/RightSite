@@ -1,11 +1,12 @@
-new Vue({
-    el:'#all_heroes_app',
+app = new Vue({
+    el:'#heroes_app',
     data: {
         heroes: []
     },
     created: function () {
         const vm = this;
-        axios.get('/api/heroes/')
+        const queryString = window.location.search;
+        axios.get('/api/heroes/' + queryString)
         .then(function (response) {
             vm.heroes = response.data;
         })
