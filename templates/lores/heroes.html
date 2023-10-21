@@ -43,7 +43,9 @@
                             <div class="col-3 p-0 mb-3 text-end ">
                                 <div class="row m-0 p-0 bg-danger rounded-bottom">
                                     <div class="col-12 p-3 m-0">
-                                        <b style="font-size: 150%; word-break: break-word;">{{ hero.name }}</b><br>
+                                        <b style="font-size: 150%; word-break: break-word;">
+                                            <a class="text-dark" style="word-break: break-word;" :href="hero.link">{{ hero.name }}</a>
+                                        </b><br>
                                         <a class="text-dark" style="word-break: break-word;" :href="'/' + hero.owner.link">{{ hero.owner.username }}</a>
                                     </div>
                                 </div>

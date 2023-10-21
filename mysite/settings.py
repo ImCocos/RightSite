@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'graphene_django',
+    
     'users.apps.UsersConfig',
     'lores.apps.LoresConfig',
 ]
@@ -150,3 +153,7 @@ AUTH_USER_MODEL = 'users.User'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
+
+GRAPHENE = {  
+    'SCHEMA': 'mysite.schema.schema'
+}

@@ -6,7 +6,7 @@ app = new Vue({
     created: function () {
         const vm = this;
         const queryString = window.location.search;
-        axios.get('/api/heroes/' + queryString)
+        axios.get('/api/v1/lores/heroes/' + queryString)
         .then(function (response) {
             vm.heroes = response.data;
         })

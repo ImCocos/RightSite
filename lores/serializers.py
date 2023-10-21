@@ -106,13 +106,3 @@ class HeroSerializer(serializers.ModelSerializer):
     class Meta:
         model = Hero
         fields = '__all__'
-
-
-"""
-<div class="col-2 mx-3 my-4 p-0">
-    > Категории:
-    <div v-for="cat in hero.categories" class="my-2 rounded bg-dark p-2 text-center" style=" word-break: break-all;">
-        <a :href="'/' + cat.link" class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">{{ cat.name }}</a><br>
-    </div>
-</div>
-"""

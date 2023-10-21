@@ -5,7 +5,7 @@ new Vue({
     },
     created: function () {
         const vm = this;
-        axios.get('/api/user/')
+        axios.get('/api/v1/users/')
         .then(function (response) {
             vm.users = response.data;
         })
