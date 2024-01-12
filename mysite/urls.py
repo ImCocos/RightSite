@@ -6,8 +6,6 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from rest_framework.routers import SimpleRouter
 
-from users.views import *
-from lores.views import *
 import api.v1.lores.views as lores_api_views
 import api.v1.users.views as users_api_views
 from api.services.api_url_maker import MakeAPIUrlFromPackage
@@ -23,10 +21,12 @@ router = SimpleRouter()
 router.register(make_url(users_api_views), users_api_views.UserView)
 router.register(make_url(lores_api_views, 'heroes'), lores_api_views.APIHeroView)
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
-    path('graphql/', GraphQLView.as_view(graphiql=True)),
+    path('graphql/', GraphQLView.as_view(graphiql=False)),
+    path('graphql-gui/', GraphQLView.as_view(graphiql=True)),
     path('', include('lores.urls')),
 ]
 

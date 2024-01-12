@@ -1,8 +1,7 @@
 from rest_framework import serializers
 
-from lores.models import *
-from users.models import *
-from api.v1.users.serializers import UserLinkSerializer
+from lores import models as lores_models
+from api.v1.users import serializers as api_v1_users_serializers
 
 
 class NameSerializer(serializers.Serializer):
@@ -54,7 +53,7 @@ class AbilityTypeSerializer(serializers.Serializer):
 
 
 class AbilitySerializer(NameSerializer, LinkSerializer):
-    owner = UserLinkSerializer()
+    owner = api_v1_users_serializers.UserLinkSerializer()
     costs = AbilityCostSerializer(many=True)
     ab_type = AbilityTypeSerializer()
     effects = EffectSerializer(many=True)
@@ -62,19 +61,19 @@ class AbilitySerializer(NameSerializer, LinkSerializer):
 
 class HeroClassSerializer(serializers.ModelSerializer):
     class Meta:
-        model = HeroClass
+        model = lores_models.HeroClass
         fields = '__all__'
 
 
 class ItemSerializer(NameSerializer, LinkSerializer):
-    owner = UserLinkSerializer()
+    owner = api_v1_users_serializers.UserLinkSerializer()
     item_class = ItemClassSerializer()
     effects = EffectSerializer(many=True)
 
 
 class HeroSerializer(NameSerializer, DescriptionSerializer, LinkSerializer):
     id = serializers.IntegerField()
-    owner = UserLinkSerializer()
+    owner = api_v1_users_serializers.UserLinkSerializer()
     categories = CategoryLinkSerializer(many=True)
     abilities = AbilitySerializer(many=True)
     items = ItemSerializer(many=True)

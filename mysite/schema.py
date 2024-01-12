@@ -1,16 +1,13 @@
 import graphene
-import lores.schemas.hero_schema
+from lores.schemas.all import all_schemas as lores_queries
+from users.schemas.all import all_schemas as users_queries
 
 
-class Query(lores.schemas.hero_schema.Query, graphene.ObjectType):
-    # This class will inherit from multiple Queries
-    # as we begin to add more apps to our project
-    pass
+class Query(
+    *lores_queries,
+    *users_queries,
+    graphene.ObjectType,
+): ...
 
-'''
-class Mutation(lores.schemas.hero_schema, graphene.ObjectType):
-    # This class will inherit from multiple Queries
-    # as we begin to add more apps to our project
-    pass
-'''
+
 schema = graphene.Schema(query=Query)

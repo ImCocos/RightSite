@@ -1,6 +1,0 @@
-query getHero {
-  hero(id: 1) {
-    id
-    name
-  }
-}

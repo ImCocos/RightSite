@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.postgres.fields import ArrayField
+
 from users.models import User
 
 
@@ -62,7 +62,8 @@ class AbilityCost(models.Model):
     per = models.ForeignKey(Per, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
-        return f'{self.__class__.__name__}-{self.cost} {self.unit.name}/{self.per.unit}'
+        return f'{self.__class__.__name__}-{self.cost}\
+                {self.unit.name}/{self.per.unit}'
 
 
 class Ability(models.Model):

@@ -30,7 +30,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['imcocos.ru']
 
 
 # Application definition
@@ -43,8 +43,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'django_filters',
     'graphene_django',
-    
+
     'users.apps.UsersConfig',
     'lores.apps.LoresConfig',
 ]
@@ -154,6 +155,6 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
-GRAPHENE = {  
+GRAPHENE = {
     'SCHEMA': 'mysite.schema.schema'
 }
